@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FormularioNFPA13 = () => {
-    const segundaTabla = (
+    const localizacionSistemaTabla = (
     <table>
       <thead>
         <tr>
@@ -30,7 +30,7 @@ const FormularioNFPA13 = () => {
       </tbody>
     </table>
   );
-    const terceraTabla = (
+    const rociadoresTabla = (
     <table>
         
       <thead>
@@ -74,17 +74,17 @@ const FormularioNFPA13 = () => {
     </table>
   );
 
-  const cuartaTabla = (
+  const tuberiaAccesoriosTabla = (
     <table>
       <thead>
         <tr>
           <th>Tipo de Tubería</th>
           <th>Tipo de Acoples</th>
-          <th>Colgadores, soportes, acoples y juntas flexibles instalados correctamente.</th> 
-          <th>Si no, explique</th>
         </tr>
+        
       </thead>
       <tbody>
+        
       <input type="text" name="tipoTuberia" />
 
           <td>
@@ -105,7 +105,10 @@ const FormularioNFPA13 = () => {
               <label for="bridados">Bridados</label>
             </div>
           </td>
-          <td>
+          <tr>
+          <th>Colgadores, soportes, acoples y juntas flexibles instalados correctamente.</th> 
+          </tr>
+          <tr>
             <div className="radio-container">
               <input type="radio" name="verificacion" id="si" value="si" />
               <label for="si">Si</label>
@@ -118,17 +121,833 @@ const FormularioNFPA13 = () => {
               <input type="radio" name="verificacion" id="na" value="na" />
               <label for="na">N/A</label>
             </div>
-          </td>
-          <td>
-            <input type="text" name="explicacion" />
-          </td>
+          </tr>
+
+          <tr>
+              <th>Sí no, explique:</th>
+            </tr>
+            <tr>
+              <td><textarea name="observaciones"></textarea></td>
+            </tr>
         
       </tbody>
     </table>
   );
 
-    
+  const valvulaAlarmaIndicadoresFlujoTabla = (
+    <form>
+      <table>
+        <thead>
+          <tr>
+            <th colSpan="4">Válvulas de alarma o indicadores de flujo</th>
+          </tr>
+          <tr>
+            <th> </th>
+            <th>Si</th>
+            <th>No</th>
+            <th>N/A</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Existe válvulas de alarma o indicadores de flujo</td>
+            <td><input type="radio" name="existeValvulas" value="si" /></td>
+            <td><input type="radio" name="existeValvulas" value="no" /></td>
+            <td><input type="radio" name="existeValvulas" value="na" /></td>
+          </tr>
+          <tr>
+            <td>Encendió la bomba contra incendio al presentarse un cambio de flujo y una baja de presión</td>
+            <td><input type="radio" name="encendioBomba" value="si" /></td>
+            <td><input type="radio" name="encendioBomba" value="no" /></td>
+            <td><input type="radio" name="encendioBomba" value="na" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  );
+  
+  const datoDispositivosAlarmaTabla = (
+    <table>
+      <thead>
+        <tr>
+          <th colSpan="4">DATOS DE DISPOSITIVOS DE ALARMA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Tipo <br />
+            <input type="text" name="tipoDispositivoAlarma1" />
+            <br />
+            <input type="text" name="tipoDispositivoAlarma2" />
+            <br />
+            <input type="text" name="tipoDispositivoAlarma3" />
+          </td>
+          <td>
+            Marca <br />
+            <input type="text" name="marcaDispositivoAlarma1" />
+            <br />
+            <input type="text" name="marcaDispositivoAlarma2" />
+            <br />
+            <input type="text" name="marcaDispositivoAlarma3" />
+          </td>
+          <td>
+            Modelo <br />
+            <input type="text" name="modeloDispositivoAlarma1" />
+            <br />
+            <input type="text" name="modeloDispositivoAlarma2" />
+            <br />
+            <input type="text" name="modeloDispositivoAlarma3" />
+          </td>
+          <td>
+            Ubicaciones <br />
+            <input type="text" name="ubicacionDispositivoAlarma1" />
+            <br />
+            <input type="text" name="ubicacionDispositivoAlarma2" />
+            <br />
+            <input type="text" name="ubicacionDispositivoAlarma3" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
+  
+  const pruebasDispositivosAlarmaTabla =  (
+    <table>
+      <thead>
+        <tr>
+          <th colSpan="6">PRUEBAS A DISPOSITIVOS DE ALARMA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Ubicación <br /><br /><br />
+            <input type="text" name="ubicacionPruebasDispositivo1" />
+            <br />
+            <input type="text" name="ubicacionPruebasDispositivo2" />
+            <br />
+            <input type="text" name="ubicacionPruebasDispositivo3" />
+            <br />
+            <input type="text" name="ubicacionPruebasDispositivo4" />
+            <br />
+            <input type="text" name="ubicacionPruebasDispositivo5" />
+          </td>
+          <td>
+            La válvula de sectorización <br />
+            supervisada mandó señal al <br />
+            panel? <br />
+            <input type="text" name="valvulaSectorizacionPruebasDispositivo1" />
+            <br />
+            <input type="text" name="valvulaSectorizacionPruebasDispositivo2" />
+            <br />
+            <input type="text" name="valvulaSectorizacionPruebasDispositivo3" />
+            <br />
+            <input type="text" name="valvulaSectorizacionPruebasDispositivo4" />
+            <br />
+            <input type="text" name="valvulaSectorizacionPruebasDispositivo5" />
+          </td>
+          <td>
+            El dispositivo de alarma <br />
+            mandó señal al panel? <br /><br />
+            <input type="text" name="dispositivoAlarmaPruebasDispositivo1" />
+            <br />
+            <input type="text" name="dispositivoAlarmaPruebasDispositivo2" />
+            <br />
+            <input type="text" name="dispositivoAlarmaPruebasDispositivo3" />
+            <br />
+            <input type="text" name="dispositivoAlarmaPruebasDispositivo4" />
+            <br />
+            <input type="text" name="dispositivoAlarmaPruebasDispositivo5" />
+          </td>
+          <td>
+            Tipo de dispositivo de<br />
+            alarma <br /><br />
+            <input type="text" name="tipoDispositivoPruebasDispositivo1" />
+            <br />
+            <input type="text" name="tipoDispositivoPruebasDispositivo2" />
+            <br />
+            <input type="text" name="tipoDispositivoPruebasDispositivo3" />
+            <br />
+            <input type="text" name="tipoDispositivoPruebasDispositivo4" />
+            <br />
+            <input type="text" name="tipoDispositivoPruebasDispositivo5" />
+          </td>
+          <td>
+            Tiempo de operación desde <br />
+            que se abre la válvula<br />
+            de prueba en minutos<br />
+            <input type="text" name="tiempoMinutosOperacionPruebasDispositivo1" />
+            <br />
+            <input type="text" name="tiempoMinutosOperacionPruebasDispositivo2" />
+            <br />
+            <input type="text" name="tiempoMinutosOperacionPruebasDispositivo3" />
+            <br />
+            <input type="text" name="tiempoMinutosOperacionPruebasDispositivo4" />
+            <br />
+            <input type="text" name="tiempoMinutosOperacionPruebasDispositivo5" />
+          </td>
+          <td>
+            Tiempo de operación desde <br />
+            que se abre la válvula<br />
+            de prueba en segundos<br />
+            <input type="text" name="tiempoSegundosOperacionPruebasDispositivo1" />
+            <br />
+            <input type="text" name="tiempoSegundosOperacionPruebasDispositivo2" />
+            <br />
+            <input type="text" name="tiempoSegundosOperacionPruebasDispositivo3" />
+            <br />
+            <input type="text" name="tiempoSegundosOperacionPruebasDispositivo4" />
+            <br />
+            <input type="text" name="tiempoSegundosOperacionPruebasDispositivo5" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
+  
+  const pruebaFuncionamientoSistemasSecosTabla =  (
+    <table>
+      <thead>
+        <tr>
+          <th colSpan="2">PRUEBA DE FUNCIONAMIENTO DE SISTEMAS SECOS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dispositivo de Apertura (Q.O.D)</td>
+        </tr>
+        <tr>
+          <td>Marca: <input type="text" name="marcaDispositivo" /></td>
+        </tr>
+        <tr>
+          <td>Modelo: <input type="text" name="modeloDispositivo" /></td>
+        </tr>
+        <tr>
+          <td>Número de Serie: <input type="text" name="numeroSerieDispositivo" /></td>
+        </tr>
 
+        <tr>
+          <td>
+             <br /><br /><br />
+            <input type="text" name="enBlanco1" value=" "/>
+            <br />
+            <input type="text" name="enBlanco2" value="Sin Q.O.D"/>
+            <br />
+            <input type="text" name="enBlanco3" value="Con Q.O.D" />
+          </td>
+          <td>
+            Tiempo en llegar a la <br />
+            línea de pruebas<br /><br />
+            <input type="text" name="tiempoLineaPrueba1" value="Segundos" />
+            <br />
+            <input type="text" name="tiempoLineaPrueba2" />
+            <br />
+            <input type="text" name="tiempoLineaPrueba3" />
+          </td>
+          <td>
+            Presión del agua <br /><br /><br />
+            <input type="text" name="presionAgua1" value="PSI" />
+            <br />
+            <input type="text" name="presionAgua2" />
+            <br />
+            <input type="text" name="presionAgua3" />
+          </td>
+          <td>
+            Presión del aire<br /><br /><br />
+            <input type="text" name="presionAire1" value="PSI" />
+            <br />
+            <input type="text" name="presionAire2" />
+            <br />
+            <input type="text" name="presionAire3" />
+          </td>
+          <td>
+            Presión de aire en un<br />
+            punto del transcurso <br /><br />
+            <input type="text" name="presionAirePunto1" value="PSI" />
+            <br />
+            <input type="text" name="presionAirePunto2" />
+            <br />
+            <input type="text" name="presionAirePunto3" />
+          </td>
+          <td>
+            Tiempo a la descarga<br />
+            de pruebas<br /><br />
+            <input type="text" name="tiempoDescarga1" value="Segundos" />
+            <br />
+            <input type="text" name="tiempoDescarga2" />
+            <br />
+            <input type="text" name="tiempoDescarga3" />
+          </td>          
+        </tr>
+        <tr>
+          <th> </th>
+            <th>Si</th>
+            <th>No</th>
+        </tr>   
+
+        <tr>
+        <td>Encendió la bomba contra incendio <br />
+            al presentarse un cambio de flujo y <br />
+            una baja de presión <br />
+        </td>
+          <td><input type="radio" name="encendioBombaContraIncendio1" value="si" /></td>
+          <td><input type="radio" name="encendioBombaContraIncendio2" value="no" /></td>
+        </tr>
+      </tbody>
+    </table>
+  );
+
+  const valvulaDiluvioPreaccionTabla = (
+    <table>
+      <thead>
+        <tr>
+          <th colSpan="5">VÁLVULA DE DILUVIO Y PREACCIÓN</th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>Neumático</th>
+          <th>Eléctrico</th>
+          <th>Hidráulico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Operación</td>
+          <td><input type="radio" name="operacionValvulaDiluvio" value="Neumático" /></td>
+          <td><input type="radio" name="operacionValvulaDiluvio" value="Eléctrico" /></td>
+          <td><input type="radio" name="operacionValvulaDiluvio" value="Hidráulico" /></td>
+        </tr>
+        <tr>
+          <th></th>
+          <th>No Diluvio</th>
+          <th>Simple</th>
+          <th>Doble</th>
+        </tr>
+        <tr>
+          <td>Interbloqueo</td>
+          <td><input type="radio" name="interbloqueoValvulaDiluvio" value="No Diluvio" /></td>
+          <td><input type="radio" name="interbloqueoValvulaDiluvio" value="Simple" /></td>
+          <td><input type="radio" name="interbloqueoValvulaDiluvio" value="Doble" /></td>
+        </tr>
+        <tr>
+          <th></th>
+          <th>Si</th>
+          <th>No</th>
+        </tr>
+        <tr>
+          <td>Tubería supervisada</td>
+          <td><input type="radio" name="tuberiaSupervisadaValvulaDiluvio" value="si" /></td>
+          <td><input type="radio" name="tuberiaSupervisadaValvulaDiluvio" value="no" /></td>
+        </tr>
+        <tr>
+          <th></th>
+          <th>Si</th>
+          <th>No</th>
+          <th>N/A</th>
+        </tr>
+        <tr>
+          <td>Detección supervisada</td>
+          <td><input type="radio" name="deteccionSupervisadaValvulaDiluvio" value="si" /></td>
+          <td><input type="radio" name="deteccionSupervisadaValvulaDiluvio" value="no" /></td>
+          <td><input type="radio" name="deteccionSupervisadaValvulaDiluvio" value="na" /></td>
+        </tr>
+        <tr>
+          <th></th>
+          <th>Máxima</th>
+          <th>Mínima</th>
+          <th>Baja Presión</th>
+          <th>Alivio</th>
+        </tr>
+        <tr>
+          <td>Presiones del aire (psi)</td>
+          <td><input type="text" name="presionAireValvulaDiluvio1" /></td>
+          <td><input type="text" name="presionAireValvulaDiluvio2" /></td>
+          <td><input type="text" name="presionAireValvulaDiluvio3" /></td>
+          <td><input type="text" name="presionAireValvulaDiluvio4" /></td>
+        </tr>
+        <tr>
+          <td>Justifique:</td>
+        </tr>
+        <tr>
+          <td colSpan="5"><textarea name="justificacion" /></td>
+        </tr>
+
+        <tr>
+                <th> </th>
+                <th>Si</th>
+                <th>No</th> <br />
+            </tr>   
+            
+            <td>Todos los accionamientos manuales funcionan correctamente</td>
+            <td><input type="radio" name="accionamientosManualesValvulaDiluvio1" value="si" /></td>
+            <td><input type="radio" name="accionamientosManualesValvulaDiluvio2" value="no" /></td>
+
+            <tr>
+                <td>Los circuitos y dispositivos de detección están accesibles</td>
+                <td><input type="radio" name="circuitosDeteccionValvulaDiluvio1" value="si" /></td>
+                <td><input type="radio" name="circuitosDeteccionValvulaDiluvio2" value="no" /></td>
+            </tr>
+
+            <tr>
+                <td>Sí no, explique:</td>
+            </tr>
+            <tr>
+                <td><textarea name="explicacionCircuitos" value=""></textarea> </td>
+            </tr>
+
+            <tr><td>Marca: <input type="text" /></td></tr>
+            <tr><td>Modelo: <input type="text" /></td></tr>
+            <tr>
+                <th> </th>
+                <th>Si</th>
+                <th>No</th> <br />
+            </tr>   
+            
+            <td>Presión del aire supervisada</td>
+            <td><input type="radio" name="presionAireValvulaDiluvio1" value="si" /></td>
+            <td><input type="radio" name="presionAireValvulaDiluvio2" value="no" /></td>
+            
+            <tr>
+                <td>Señales que operan la válvula</td>
+            <td><input type="radio" name="señalesOperanValvulaDiluvio1" value="si" /></td>
+            <td><input type="radio" name="señalesOperanValvulaDiluvio2" value="no" /></td>
+            </tr>
+            <tr><td>Tiempo máximo de activación: <input type="text" /></td></tr>
+      </tbody>
+    </table>
+  );
+
+  const descripcionPruebasTabla = (
+    <table>
+      <tbody>
+      <tr><th>Descripción de pruebas</th> </tr>
+            <tr>
+                <td>Hidrostática: Debe realizarse a una presión no menor que 200 psi (13.6 bar) 
+                    por 2 horas o 50 psi (3.4 bar) sobre la presión estática si esta es mayor que 
+                    150 psi (10.2 bar) por 2 horas. Las lengüetas de las válvulas check deben mantenerse
+                     abiertas para evitar daños.</td>
+            </tr>
+            <tr>
+                <td>Neumática: Establecer una presión de aire de 40 psi (2.7 bar) y medir la diferencia de presión, 
+                    la cual no debe exceder de 1.5 psi (0.1 bar) en un periodo de 24 horas. Probar los tanques 
+                    de presión al nivel de agua normal y medir la caída de presión, que no debe exceder en 1.5 psi
+                     (0.1 bar) en 24 horas.</td>
+            </tr>    
+      </tbody>
+    </table>
+  );  
+
+  const pruebasTabla = (
+    <table>
+      <tbody>
+      <th>PRUEBAS</th>
+            <tr>
+                <th> </th>
+                <th>Si</th>
+                <th>No</th>
+                <th>N/A</th>
+            </tr>   
+            
+                <td>Todas las tuberías probadas hidrostáticamente</td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica1" value="si" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica2" value="no" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica3" value="na" /></td>
+            <tr>
+                <td>Tubería seca probada neumáticamente</td>
+                <td><input type="radio" name="pruebasTuberiaSeca1" value="si" /></td>
+                <td><input type="radio" name="pruebasTuberiaSeca2" value="no" /></td>
+                <td><input type="radio" name="pruebasTuberiaSeca3" value="na" /></td>
+            </tr>
+            <tr><td>Presión de prueba: <input type="text" /></td></tr>
+            <tr><td>Tiempo de prueba: <input type="text" /></td></tr>
+            <tr>
+                <td>Equipos operan correctamente</td>
+                <td><input type="radio" name="pruebasEquiposOperanCorrect1" value="si" /></td>
+                <td><input type="radio" name="pruebasEquiposOperanCorrect2" value="no" /></td>
+                <td><input type="radio" name="pruebasEquiposOperanCorrect3" value="na" /></td>
+            </tr>
+            <tr>
+                <td>Sí no, explique:</td>
+            </tr>
+            
+            <td><textarea name="explicacionEquiposOperanCorrect" value=""></textarea> </td>
+      </tbody>
+    </table>
+
+  );
+
+  const pruebasEnunciadosTabla = (
+    <table>
+      <tbody>
+      <tr>
+                <th> </th>
+                <th>Si</th>
+                <th>No</th>
+                <th>N/A</th>
+            </tr>
+            <td>Como contratista instalador, ¿certifica que no ha usado aditivos ni químicos
+                corrosivos (silicato de sodio o derivados de silicato de sodio, salmuera u 
+                otros químicos corrosivos) para las pruebas o para detener fugas?</td>
+           <td><input type="radio" name="pruebasTuberiasHidrostatica1" value="si" /></td>
+           <td><input type="radio" name="pruebasTuberiasHidrostatica2" value="no" /></td>
+           <td><input type="radio" name="pruebasTuberiasHidrostatica3" value="na" /></td>
+           <tr>
+                <td>El sistema de rociadores cuenta con múltiple de válvulas?</td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica1" value="si" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica2" value="no" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica3" value="na" /></td>
+           </tr>
+      </tbody>
+    </table>
+
+  );
+
+  const presionesMultipleValvulaTabla = (
+    <table>
+      <tbody>
+        <tr><th>Presiones en el múltiple de válvulas</th></tr>
+        <tr>
+                <td>Sistema <br/><br/><br/>
+                    <input type="text" name="sistemaPresionMultipleValvula1" />
+                    <br/>
+                    <input type="text" name="sistemaPresionMultipleValvula2" />
+                    <br/>
+                    <input type="text" name="sistemaPresionMultipleValvula3" /> 
+                    <br/>
+                    <input type="text" name="sistemaPresionMultipleValvula4" />
+                    <br/>
+                    <input type="text" name="sistemaPresionMultipleValvula5" />            
+                </td>
+                <td >Presión estática (psi)<br/> Entrada<br/><br/>
+                    <input type="text" name="presionEstaticaEntradaPresionMultipleValvula1" />
+                    <br/>
+                    <input type="text" name="presionEstaticaEntradaPresionMultipleValvula2" />
+                    <br/>
+                    <input type="text" name="presionEstaticaEntradaPresionMultipleValvula3" /> 
+                    <br/>
+                    <input type="text" name="presionEstaticaEntradaPresionMultipleValvula4" />
+                    <br/>
+                    <input type="text" name="presionEstaticaEntradaPresionMultipleValvula5" value="164" />             
+                </td>
+                <td >Presión estática (psi)<br/> Salida<br/><br/>
+                    <input type="text" name="presionEstaticaSalidaPresionMultipleValvula1" />
+                    <br/>
+                    <input type="text" name="presionEstaticaSalidaPresionMultipleValvula2" />
+                    <br/>
+                    <input type="text" name="presionEstaticaSalidaPresionMultipleValvula3" />  
+                    <br/>
+                    <input type="text" name="presionEstaticaSalidaPresionMultipleValvula4" />
+                    <br/>
+                    <input type="text" name="presionEstaticaSalidaPresionMultipleValvula5" value="165" />             
+                </td>
+                <td >Presión residual (psi)<br/> Entrada<br/><br/>
+                    <input type="text" name="presionResidualEntradaPresionMultipleValvula1" />
+                    <br/>
+                    <input type="text" name="presionResidualEntradaPresionMultipleValvula2" />
+                    <br/>
+                    <input type="text" name="presionResidualEntradaPresionMultipleValvula3" />  
+                    <br/>
+                    <input type="text" name="presionResidualEntradaPresionMultipleValvula4" />
+                    <br/>
+                    <input type="text" name="presionResidualEntradaPresionMultipleValvula5" value="162" />             
+                </td>
+                <td>Presión residual (psi)<br/> Salida<br/><br/>
+                    <input type="text" name="presionResidualSalidaPresionMultipleValvula1" />
+                    <br/>
+                    <input type="text" name="presionResidualSalidaPresionMultipleValvula2" />
+                    <br/>
+                    <input type="text" name="presionResidualSalidaPresionMultipleValvula3" />  
+                    <br/>
+                    <input type="text" name="presionResidualSalidaPresionMultipleValvula4" />
+                    <br/>
+                    <input type="text" name="presionResidualSalidaPresionMultipleValvula5" value="160" />              
+                </td>
+                <td>Tiempo* <br/><br/><br/>
+                    <input type="text" name="tiempoPresionMultipleValvula1" />
+                    <br/>
+                    <input type="text" name="tiempoPresionMultipleValvula2" />
+                    <br/>
+                    <input type="text" name="tiempoPresionMultipleValvula3" />  
+                    <br/>
+                    <input type="text" name="tiempoPresionMultipleValvula4" />
+                    <br/>
+                    <input type="text" name="tiempoPresionMultipleValvula5" />  
+                </td>
+            </tr> 
+      </tbody>
+    </table>
+
+  );
+
+  const tiempoRetornarPresionEstaticaTabla = (
+    <table>
+      <tbody>
+        <tr><td>*Tiempo que tarda en retornar la presión estática a la presión original</td></tr>
+        <tr>
+                <th> </th>
+                <th>Si</th>
+                <th>No</th>
+                <th>N/A</th>
+            </tr>
+            <td>¿Funciona correctamente la campana hidráulica del sistema y se encuentra rotulada?</td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+
+            <tr>
+                <td>¿Las válvulas de sectorización se encuentran aseguradas o supervisadas?</td>
+                <td><input type="radio" name="valvulasSectorizacionAseguradas1" value="si" /></td>
+                <td><input type="radio" name="valvulasSectorizacionAseguradas2" value="no" /></td>
+                <td><input type="radio" name="valvulasSectorizacionAseguradas3" value="na" /></td>
+            </tr>
+
+            <tr>
+                <td>¿El trim de alarma se encuentra correctamente instalado?</td>
+                <td><input type="radio" name="trimAlarmCorrectInstall1" value="si" /></td>
+                <td><input type="radio" name="trimAlarmCorrectInstall2" value="no" /></td>
+                <td><input type="radio" name="trimAlarmCorrectInstall3" value="na" /></td>
+            </tr>
+
+            <tr>
+                <td>Sí no, explique:</td>
+            </tr>            
+            <td><textarea name="explicacionTrimAlarmaCorrectInstall" value=""></textarea> </td>
+
+            <tr>
+                <th> </th>
+                <th>Si</th>
+                <th>No</th>
+                <th>N/A</th>
+            </tr>
+            <td>Se han instalado válvulas reguladoras de presión en los sistemas</td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+
+            <tr>
+                <td>Si es afirmativo, indicar las ubicaciones:</td>
+            </tr>            
+            <td><textarea name="afirmativoIndicarUbi" value=""></textarea></td>
+      </tbody>
+    </table>
+  );
+
+  const valvulaReguladoraPresionTabla = (
+    <table>
+      <tbody>
+        <th>Válvula reguladora de presión</th>
+            <tr><td>Marca: <input type="text"/></td></tr>
+            <tr><td>Modelo: <input type="text"/></td></tr>
+            <tr><td>Presión de seteo:<input type="text"/></td></tr>
+      </tbody>
+    </table>
+  );
+
+  const presionEnSistemaTabla = (
+    <table>
+      <tbody>
+        <th>Presiones en los sistemas</th>
+            <tr>
+                <td>Ubicación <br/> <br/> <br/>
+                    <input type="text" name="ubicacionPresionesSistema1"/>
+                    <br/>
+                    <input type="text" name="ubicacionPresionesSistema2"/>
+                    <br/>
+                    <input type="text" name="ubicacionPresionesSistema3"/> 
+                    <br/>
+                    <input type="text" name="ubicacionPresionesSistema4"/>
+                    <br/>
+                    <input type="text" name="ubicacionPresionesSistema5"/>             
+                </td>
+                <td>Presión estática (psi) <br/> <br/> <br/>
+                    <input type="text" name="presionPresionesSistema1"/> 
+                    <br/>
+                    <input type="text" name="presionPresionesSistema2"/> 
+                    <br/>
+                    <input type="text" name="presionPresionesSistema3"/>   
+                    <br/>
+                    <input type="text" name="presionPresionesSistema4"/> 
+                    <br/>
+                    <input type="text" name="presionPresionesSistema5"/>               
+                </td>
+                <td>Presión residual al ingreso <br/>
+                    del sistema (psi) antes <br/> <br/>
+                    <input type="text" name="presionResidulAntesPresionesSistema1"/> 
+                    <br/> 
+                    <input type="text" name="presionResidulAntesPresionesSistema2"/> 
+                    <br/> 
+                    <input type="text" name="presionResidulAntesPresionesSistema3"/>  
+                    <br/> 
+                    <input type="text" name="presionResidulAntesPresionesSistema4"/> 
+                    <br/> 
+                    <input type="text" name="presionResidulAntesPresionesSistema5"/>              
+                </td>
+                <td >Presión residual al ingreso <br/> 
+                    del sistema (psi) despues <br/>  <br/> 
+                    <input type="text" name="presionResidulDespuesPresionesSistema1"/> 
+                    <br/> 
+                    <input type="text" name="presionResidulDespuesPresionesSistema2"/> 
+                    <br/> 
+                    <input type="text" name="presionResidulDespuesPresionesSistema3"/> 
+                    <br/> 
+                    <input type="text" name="presionResidulDespuesPresionesSistema4"/> 
+                    <br/> 
+                    <input type="text" name="presionResidulDespuesPresionesSistema5"/>              
+                </td>
+                <td>Presión residual en el punto <br/> 
+                     más desfavorable (psi)<br/> <br/>                   
+                    
+                    <input type="text" name="presionResidualDesfavorablePresionesSistema1"/> 
+                    <br/> 
+                    <input type="text" name="presionResidualDesfavorablePresionesSistema2"/> 
+                    <br/> 
+                    <input type="text" name="presionResidualDesfavorablePresionesSistema3"/> 
+                    <br/> 
+                    <input type="text" name="presionResidualDesfavorablePresionesSistema4"/> 
+                    <br/> 
+                    <input type="text" name="presionResidualDesfavorablePresionesSistema5"/>              
+                </td>
+            </tr>
+      </tbody>
+    </table>
+
+  );
+
+  const preguntasPruebasTabla = (
+    <table>
+      <tbody>
+      <tr>
+                <th> </th>
+                <th>Si</th>
+                <th>No</th>
+                <th>N/A</th>
+            </tr>
+            <td>La válvula de prueba tiene el orificio diseñado con el diámetro del rociador más pequeño instalado</td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+
+            <tr>
+                <td>Tuberías principales enterradas y alimentaciones a montantes lavadas antes de conectarlas al sistema</td>
+                <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
+                <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
+                <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+            </tr>
+
+            <tr>
+                <td>Otros, detallar:</td>
+            </tr>            
+            <td><textarea name="otroDetallarCampanaHidraulica" value=""></textarea></td>
+
+            <tr>
+                <th> </th>
+                <th>Si</th>
+                <th>No</th>
+                <th>N/A</th>
+            </tr>
+            <td>Si se usado anclajes instalados a bloques de concreto mediante disparo de pistola (pólvora) <br/>
+                ¿se ha comprobado satisfactoriamente una muestra?</td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+
+            <tr>
+                <td>Si no, justifique:</td>
+            </tr>            
+            <td><textarea name="justificacionCampanaHidraulica" value=""></textarea></td>
+      </tbody>
+    </table>
+  );
+
+  const placaDatosHidraulicosTabla = (
+    <table>
+      <tbody>
+      <th>Placa de datos hidráulicos</th>
+            <tr>
+                <th> </th>
+                <th>Si</th>
+                <th>No</th>
+                <th>N/A</th>
+            </tr>
+            <td>Se provee la placa de datos hidráulicos</td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+
+            <tr>
+                <td>Si no, justifique:</td>
+            </tr>            
+            <td><textarea name="justificacionPlacaDatosHidraulicos" value=""></textarea></td>
+      </tbody>
+    </table>
+  );
+
+  const comentarioTabla = (
+    <table>
+      <tbody>
+        <th>Comentario</th>
+        <tr><td>PERSONAS PRESENTES</td></tr>
+        <tr>Fecha en la que se dejo el sistema operativo con todas las válvulas <br/>
+                en la posición normal de funcionamiento</tr>
+            <td>Fecha: <input type="date" /></td>
+            <td>Hora: <input type="time" /></td>
+      </tbody>
+    </table>
+  );
+
+  const firmasTabla = (
+    <table>
+      <tbody>
+        <th>Firmas</th>
+          <tr><th>Nombre del contratista instalador: <input type="text"/></th></tr>
+          <tr><td>Pruebas presenciadas por</td></tr>
+          <td> Nombre <br/>                  
+               <input type="text" name="nombreFirmaContratistaInstalador1"/> 
+               <br/> 
+               <input type="text" name="nombreFirmaContratistaInstalador2"/> 
+               <br/> 
+               <input type="text" name="nombreFirmaContratistaInstalador3"/>  
+               <br/> 
+               <input type="text" name="nombreFirmaContratistaInstalador4"/>                           
+            </td>
+            <td> Empresa <br/>                  
+            <input type="text" name="empresaFirmaContratistaInstalador1"/> 
+            <br/> 
+            <input type="text" name="empresaFirmaContratistaInstalador2"/> 
+            <br/> 
+            <input type="text" name="empresaFirmaContratistaInstalador3"/>  
+            <br/> 
+            <input type="text" name="empresaFirmaContratistaInstalador4"/>                         
+            </td>
+            <td> Representante <br/>                   
+                <input type="text" name="representanteFirmaContratistaInstalador1"/> 
+                <br/> 
+                <input type="text" name="representanteFirmaContratistaInstalador2"/> 
+                <br/> 
+                <input type="text" name="representanteFirmaContratistaInstalador3"/>  
+                <br/> 
+                <input type="text" name="representanteFirmaContratistaInstalador4"/>                         
+            </td>
+            <td> Fecha <br/>                   
+                <input type="text" name="fechaFirmaContratistaInstalador1"/> 
+                <br/> 
+                <input type="text" name="fechaFirmaContratistaInstalador2"/> 
+                <br/> 
+                <input type="text" name="fechaFirmaContratistaInstalador3"/> 
+                <br/> 
+                <input type="text" name="fechaFirmaContratistaInstalador4"/>                         
+            </td>
+            <tr>
+                <tr>
+                    <td>Observaciones:</td>
+                </tr>            
+                <td><textarea name="observacionesFirmaContratistaInstalador4" value=""></textarea></td> 
+            </tr>
+      </tbody>
+    </table>
+  );
+  
 
   return (
     <div>
@@ -273,9 +1092,25 @@ const FormularioNFPA13 = () => {
         </table>
         </form>
 
-      {segundaTabla}
-      {terceraTabla}
-      {cuartaTabla}
+      {localizacionSistemaTabla}
+      {rociadoresTabla}
+      {tuberiaAccesoriosTabla}
+      {valvulaAlarmaIndicadoresFlujoTabla}
+      {datoDispositivosAlarmaTabla}
+      {pruebasDispositivosAlarmaTabla}
+      {pruebaFuncionamientoSistemasSecosTabla}
+      {valvulaDiluvioPreaccionTabla}
+      {descripcionPruebasTabla}
+      {pruebasTabla}
+      {pruebasEnunciadosTabla}
+      {presionesMultipleValvulaTabla}
+      {tiempoRetornarPresionEstaticaTabla}
+      {valvulaReguladoraPresionTabla}
+      {presionEnSistemaTabla}
+      {preguntasPruebasTabla}
+      {placaDatosHidraulicosTabla}
+      {comentarioTabla}
+      {firmasTabla}
     </div>
   );
 };
