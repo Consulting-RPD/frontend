@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const FormularioNFPA13 = () => {
-    const localizacionSistemaTabla = (
+  const [tipoPrueba, setTipoPrueba] = useState('');
+  const [mostrarInformacionGeneral, setMostrarInformacionGeneral] = useState(true);
+
+
+  const handleTipoPruebaChange = (e) => {
+    const seleccion = e.target.value;
+    setTipoPrueba(seleccion);
+
+    // Condicional para mostrar u ocultar la tabla de información general
+    if (seleccion === 'Pruebas periódicas anuales') {
+        setMostrarInformacionGeneral(false);
+    } else {
+        setMostrarInformacionGeneral(true);
+    }
+};
+
+  const localizacionSistemaTabla = (
     <table>
       <thead>
         <tr>
@@ -10,26 +26,28 @@ const FormularioNFPA13 = () => {
       </thead>
       <tbody>
         <tr>
-          <th>
+          <td>
             Nombre <br />
             <input type="text" name="nombre1" /> <br />
             <input type="text" name="nombre2" /> <br />
             <input type="text" name="nombre3" /> <br />
             <input type="text" name="nombre4" /> <br />
             <input type="text" name="nombre5" />
-          </th>
-          <th>
+          </td>
+          <td>
             Edificaciones que alimenta <br />
             <input type="text" name="nombreModelo1" /> <br />
             <input type="text" name="nombreModelo2" /> <br />
             <input type="text" name="nombreModelo3" /> <br />
             <input type="text" name="nombreModelo4" /> <br />
             <input type="text" name="nombreModelo5" />
-          </th>
+          </td>
         </tr>
       </tbody>
     </table>
   );
+
+
     const rociadoresTabla = (
     <table>
         
@@ -970,13 +988,16 @@ const FormularioNFPA13 = () => {
           <input type="time" id="horaInicio" name="horaInicio" required />
         </div>
         <div>
-          <label htmlFor="tipoPrueba">Tipo de Prueba:</label>
-          <select id="tipoPrueba" name="tipoPrueba" required>
-            <option value="recepcionSistema">Recepción del Sistema</option>
-            <option value="pruebasPeriodicasAnuales">Pruebas Periódicas Anuales</option>
+        <label>
+          Tipo de prueba:
+          <select value={tipoPrueba} onChange={handleTipoPruebaChange}>
+          <option value="">Seleccione una opción</option>
+          <option value="Recepción del sistema">Recepción del sistema</option>
+          <option value="Pruebas periódicas anuales">Pruebas periódicas anuales</option>
           </select>
-        </div>
-        <table>
+          </label>
+          {mostrarInformacionGeneral && (
+          <table>
           <thead>
             <tr>
               <th>INFORMACIÓN GENERAL</th>
@@ -1090,8 +1111,11 @@ const FormularioNFPA13 = () => {
             </tr>
           </tbody>
         </table>
+        )}
+        </div>        
         </form>
 
+      {mostrarInformacionGeneral}
       {localizacionSistemaTabla}
       {rociadoresTabla}
       {tuberiaAccesoriosTabla}
@@ -1116,3 +1140,5 @@ const FormularioNFPA13 = () => {
 };
 
 export default FormularioNFPA13;
+
+
