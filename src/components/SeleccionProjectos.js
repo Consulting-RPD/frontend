@@ -9,7 +9,6 @@ const SeleccionProjectos = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // URL de la API desplegada en Render
     const apiUrl = 'http://172.16.30.76:8080/api/v1/projects/project';
 
     const fetchData = async () => {
@@ -18,7 +17,7 @@ const SeleccionProjectos = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            // Agregar otras cabeceras si es necesario
+            // No incluir 'Access-Control-Allow-Origin' aquí
           },
         });
 
@@ -27,7 +26,7 @@ const SeleccionProjectos = () => {
         }
 
         const data = await response.json();
-        setProjectos(data);
+        setProjectos(data.content); // Aquí accedemos a data.content que contiene los proyectos
       } catch (error) {
         setError(error.message);
       } finally {
@@ -64,7 +63,7 @@ const SeleccionProjectos = () => {
         <tbody>
           {projectos.map(projecto => (
             <tr key={projecto.id} onClick={() => setProjectoSeleccionado(projecto.id)}>
-              <td>{projecto.nombre}</td>
+              <td>{projecto.projectName}</td> {/* Usamos projectName en lugar de nombre */}
             </tr>
           ))}
         </tbody>
@@ -75,4 +74,3 @@ const SeleccionProjectos = () => {
 };
 
 export default SeleccionProjectos;
-
