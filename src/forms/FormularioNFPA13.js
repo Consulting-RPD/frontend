@@ -1140,5 +1140,3 @@ const FormularioNFPA13 = () => {
 };
 
 export default FormularioNFPA13;
-
-
