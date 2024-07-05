@@ -9,7 +9,7 @@ const SeleccionProjectos = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const apiUrl = 'http://172.16.30.76:8080/api/v1/projects/project';
+    const apiUrl = 'https://rpd-dev.onrender.com/api/v1/projects/project';
 
     const fetchData = async () => {
       try {
