@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/EstiloFormularioNFPA13.css';
 
 const FormularioNFPA13 = () => {
   const [tipoPrueba, setTipoPrueba] = useState('');
@@ -93,19 +94,12 @@ const FormularioNFPA13 = () => {
   );
 
   const tuberiaAccesoriosTabla = (
-    <table>
-      <thead>
-        <tr>
-          <th>Tipo de Tubería</th>
-          <th>Tipo de Acoples</th>
-        </tr>
-        
-      </thead>
+    <table>     
       <tbody>
-        
-      <input type="text" name="tipoTuberia" />
+      <th>Tipo de Tubería: <input type="text" name="tipoTuberia" /></th>
 
           <td>
+            <th>Tipo de Acoples</th>
             <div className="checkbox-container">
               <input type="checkbox" name="roscados" id="roscados" />
               <label for="roscados">Roscados</label>
@@ -123,10 +117,9 @@ const FormularioNFPA13 = () => {
               <label for="bridados">Bridados</label>
             </div>
           </td>
+                    
           <tr>
-          <th>Colgadores, soportes, acoples y juntas flexibles instalados correctamente.</th> 
-          </tr>
-          <tr>
+            <td>Colgadores, soportes, acoples y juntas flexibles instalados correctamente.</td> 
             <div className="radio-container">
               <input type="radio" name="verificacion" id="si" value="si" />
               <label for="si">Si</label>
@@ -906,10 +899,10 @@ const FormularioNFPA13 = () => {
       <tbody>
         <th>Comentario</th>
         <tr><td>PERSONAS PRESENTES</td></tr>
-        <tr>Fecha en la que se dejo el sistema operativo con todas las válvulas <br/>
-                en la posición normal de funcionamiento</tr>
+        <tr><td>Fecha en la que se dejo el sistema operativo con todas las válvulas<br/>
+                en la posición normal de funcionamiento </td></tr>
             <td>Fecha: <input type="date" /></td>
-            <td>Hora: <input type="time" /></td>
+            <tr><td>Hora: <input type="time" /></td></tr>
       </tbody>
     </table>
   );
@@ -956,11 +949,8 @@ const FormularioNFPA13 = () => {
                 <br/> 
                 <input type="text" name="fechaFirmaContratistaInstalador4"/>                         
             </td>
-            <tr>
-                <tr>
-                    <td>Observaciones:</td>
-                </tr>            
-                <td><textarea name="observacionesFirmaContratistaInstalador4" value=""></textarea></td> 
+            <tr>                
+              <tr><td>Observaciones: <textarea name="observacionesFirmaContratistaInstalador4" value=""></textarea></td></tr> 
             </tr>
       </tbody>
     </table>
