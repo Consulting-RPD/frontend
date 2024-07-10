@@ -9,6 +9,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<SeleccionProjectos />} />
+        <Route path="/seleccion-projectos" element={<SeleccionProjectos />} />
+        <Route path="/" element={<SeleccionProjectos />} />
         <Route path="/seleccion-formulario" element={<SeleccionFormularios />} />
         <Route path="/" element={<SeleccionFormularios />} />
         <Route path="/formularios/nfpa13" element={<FormularioNFPA13 />} />

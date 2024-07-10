@@ -1,22 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../styles/EstiloFormularioNFPA13.css';
 
 const FormularioNFPA13 = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [tipoPrueba, setTipoPrueba] = useState('');
   const [mostrarInformacionGeneral, setMostrarInformacionGeneral] = useState(true);
+  const [fechaHora, setFechaHora] = useState('');
 
+  useEffect(() => {
+    const now = new Date();
+    const formattedDateTime = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}T${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    setFechaHora(formattedDateTime);
+  }, []);
 
   const handleTipoPruebaChange = (e) => {
     const seleccion = e.target.value;
     setTipoPrueba(seleccion);
 
-    // Condicional para mostrar u ocultar la tabla de información general
     if (seleccion === 'Pruebas periódicas anuales') {
-        setMostrarInformacionGeneral(false);
+      setMostrarInformacionGeneral(false);
     } else {
-        setMostrarInformacionGeneral(true);
+      setMostrarInformacionGeneral(true);
     }
-};
+  };
+
+  const handleGuardar = async () => {
+    const { protocolId, protocolNumber } = location.state; //protocolId de la DB
+    const protectedArea = document.getElementById('nombreAreaProtegida')?.value || '';  
+    const date = fechaHora;
+    const address = document.getElementById('direccion')?.value || '';
+    const type = tipoPrueba === 'Recepción del sistema' ? 0 : 1;
+
+    const data = {
+      protocolNumber,
+      protectedArea,
+      date,
+      address,
+      type,
+    };
+    console.log('Datos a enviar:', data);
+
+    try {
+      const response = await fetch(`https://rpd-dev.onrender.com/api/v1/protocols/protocolHeader/${protocolId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Datos guardados:', result);
+        // Aquí puedes manejar la respuesta del servidor, como mostrar un mensaje de éxito.
+      } else {
+        console.error('Error al guardar los datos');
+        // Aquí puedes manejar el error, como mostrar un mensaje de error.
+      }
+    } catch (error) {
+      console.error('Error en la petición:', error);
+    }
+  };
 
   const localizacionSistemaTabla = (
     <table>
@@ -402,8 +448,8 @@ const FormularioNFPA13 = () => {
             al presentarse un cambio de flujo y <br />
             una baja de presión <br />
         </td>
-          <td><input type="radio" name="encendioBombaContraIncendio1" value="si" /></td>
-          <td><input type="radio" name="encendioBombaContraIncendio2" value="no" /></td>
+          <td><input type="radio" name="encendioBombaContraIncendio" value="si" /></td>
+          <td><input type="radio" name="encendioBombaContraIncendio" value="no" /></td>
         </tr>
       </tbody>
     </table>
@@ -491,13 +537,13 @@ const FormularioNFPA13 = () => {
             </tr>   
             
             <td>Todos los accionamientos manuales funcionan correctamente</td>
-            <td><input type="radio" name="accionamientosManualesValvulaDiluvio1" value="si" /></td>
-            <td><input type="radio" name="accionamientosManualesValvulaDiluvio2" value="no" /></td>
+            <td><input type="radio" name="accionamientosManualesValvulaDiluvio" value="si" /></td>
+            <td><input type="radio" name="accionamientosManualesValvulaDiluvio" value="no" /></td>
 
             <tr>
                 <td>Los circuitos y dispositivos de detección están accesibles</td>
-                <td><input type="radio" name="circuitosDeteccionValvulaDiluvio1" value="si" /></td>
-                <td><input type="radio" name="circuitosDeteccionValvulaDiluvio2" value="no" /></td>
+                <td><input type="radio" name="circuitosDeteccionValvulaDiluvio" value="si" /></td>
+                <td><input type="radio" name="circuitosDeteccionValvulaDiluvio" value="no" /></td>
             </tr>
 
             <tr>
@@ -516,13 +562,13 @@ const FormularioNFPA13 = () => {
             </tr>   
             
             <td>Presión del aire supervisada</td>
-            <td><input type="radio" name="presionAireValvulaDiluvio1" value="si" /></td>
-            <td><input type="radio" name="presionAireValvulaDiluvio2" value="no" /></td>
+            <td><input type="radio" name="presionAireValvulaDiluvio" value="si" /></td>
+            <td><input type="radio" name="presionAireValvulaDiluvio" value="no" /></td>
             
             <tr>
                 <td>Señales que operan la válvula</td>
-            <td><input type="radio" name="señalesOperanValvulaDiluvio1" value="si" /></td>
-            <td><input type="radio" name="señalesOperanValvulaDiluvio2" value="no" /></td>
+            <td><input type="radio" name="señalesOperanValvulaDiluvio" value="si" /></td>
+            <td><input type="radio" name="señalesOperanValvulaDiluvio" value="no" /></td>
             </tr>
             <tr><td>Tiempo máximo de activación: <input type="text" /></td></tr>
       </tbody>
@@ -561,22 +607,22 @@ const FormularioNFPA13 = () => {
             </tr>   
             
                 <td>Todas las tuberías probadas hidrostáticamente</td>
-                <td><input type="radio" name="pruebasTuberiasHidrostatica1" value="si" /></td>
-                <td><input type="radio" name="pruebasTuberiasHidrostatica2" value="no" /></td>
-                <td><input type="radio" name="pruebasTuberiasHidrostatica3" value="na" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica" value="si" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica" value="no" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica" value="na" /></td>
             <tr>
                 <td>Tubería seca probada neumáticamente</td>
-                <td><input type="radio" name="pruebasTuberiaSeca1" value="si" /></td>
-                <td><input type="radio" name="pruebasTuberiaSeca2" value="no" /></td>
-                <td><input type="radio" name="pruebasTuberiaSeca3" value="na" /></td>
+                <td><input type="radio" name="pruebasTuberiaSeca" value="si" /></td>
+                <td><input type="radio" name="pruebasTuberiaSeca" value="no" /></td>
+                <td><input type="radio" name="pruebasTuberiaSeca" value="na" /></td>
             </tr>
             <tr><td>Presión de prueba: <input type="text" /></td></tr>
             <tr><td>Tiempo de prueba: <input type="text" /></td></tr>
             <tr>
                 <td>Equipos operan correctamente</td>
-                <td><input type="radio" name="pruebasEquiposOperanCorrect1" value="si" /></td>
-                <td><input type="radio" name="pruebasEquiposOperanCorrect2" value="no" /></td>
-                <td><input type="radio" name="pruebasEquiposOperanCorrect3" value="na" /></td>
+                <td><input type="radio" name="pruebasEquiposOperanCorrect" value="si" /></td>
+                <td><input type="radio" name="pruebasEquiposOperanCorrect" value="no" /></td>
+                <td><input type="radio" name="pruebasEquiposOperanCorrect" value="na" /></td>
             </tr>
             <tr>
                 <td>Sí no, explique:</td>
@@ -600,14 +646,14 @@ const FormularioNFPA13 = () => {
             <td>Como contratista instalador, ¿certifica que no ha usado aditivos ni químicos
                 corrosivos (silicato de sodio o derivados de silicato de sodio, salmuera u 
                 otros químicos corrosivos) para las pruebas o para detener fugas?</td>
-           <td><input type="radio" name="pruebasTuberiasHidrostatica1" value="si" /></td>
-           <td><input type="radio" name="pruebasTuberiasHidrostatica2" value="no" /></td>
-           <td><input type="radio" name="pruebasTuberiasHidrostatica3" value="na" /></td>
+           <td><input type="radio" name="pruebasTuberiasHidrostatica" value="si" /></td>
+           <td><input type="radio" name="pruebasTuberiasHidrostatica" value="no" /></td>
+           <td><input type="radio" name="pruebasTuberiasHidrostatica" value="na" /></td>
            <tr>
                 <td>El sistema de rociadores cuenta con múltiple de válvulas?</td>
-                <td><input type="radio" name="pruebasTuberiasHidrostatica1" value="si" /></td>
-                <td><input type="radio" name="pruebasTuberiasHidrostatica2" value="no" /></td>
-                <td><input type="radio" name="pruebasTuberiasHidrostatica3" value="na" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica" value="si" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica" value="no" /></td>
+                <td><input type="radio" name="pruebasTuberiasHidrostatica" value="na" /></td>
            </tr>
       </tbody>
     </table>
@@ -702,22 +748,22 @@ const FormularioNFPA13 = () => {
                 <th>N/A</th>
             </tr>
             <td>¿Funciona correctamente la campana hidráulica del sistema y se encuentra rotulada?</td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="na" /></td>
 
             <tr>
                 <td>¿Las válvulas de sectorización se encuentran aseguradas o supervisadas?</td>
-                <td><input type="radio" name="valvulasSectorizacionAseguradas1" value="si" /></td>
-                <td><input type="radio" name="valvulasSectorizacionAseguradas2" value="no" /></td>
-                <td><input type="radio" name="valvulasSectorizacionAseguradas3" value="na" /></td>
+                <td><input type="radio" name="valvulasSectorizacionAseguradas" value="si" /></td>
+                <td><input type="radio" name="valvulasSectorizacionAseguradas" value="no" /></td>
+                <td><input type="radio" name="valvulasSectorizacionAseguradas" value="na" /></td>
             </tr>
 
             <tr>
                 <td>¿El trim de alarma se encuentra correctamente instalado?</td>
-                <td><input type="radio" name="trimAlarmCorrectInstall1" value="si" /></td>
-                <td><input type="radio" name="trimAlarmCorrectInstall2" value="no" /></td>
-                <td><input type="radio" name="trimAlarmCorrectInstall3" value="na" /></td>
+                <td><input type="radio" name="trimAlarmCorrectInstall" value="si" /></td>
+                <td><input type="radio" name="trimAlarmCorrectInstall" value="no" /></td>
+                <td><input type="radio" name="trimAlarmCorrectInstall" value="na" /></td>
             </tr>
 
             <tr>
@@ -732,9 +778,9 @@ const FormularioNFPA13 = () => {
                 <th>N/A</th>
             </tr>
             <td>Se han instalado válvulas reguladoras de presión en los sistemas</td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="na" /></td>
 
             <tr>
                 <td>Si es afirmativo, indicar las ubicaciones:</td>
@@ -835,15 +881,15 @@ const FormularioNFPA13 = () => {
                 <th>N/A</th>
             </tr>
             <td>La válvula de prueba tiene el orificio diseñado con el diámetro del rociador más pequeño instalado</td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="na" /></td>
 
             <tr>
                 <td>Tuberías principales enterradas y alimentaciones a montantes lavadas antes de conectarlas al sistema</td>
-                <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
-                <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
-                <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+                <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="si" /></td>
+                <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="no" /></td>
+                <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="na" /></td>
             </tr>
 
             <tr>
@@ -859,9 +905,9 @@ const FormularioNFPA13 = () => {
             </tr>
             <td>Si se usado anclajes instalados a bloques de concreto mediante disparo de pistola (pólvora) <br/>
                 ¿se ha comprobado satisfactoriamente una muestra?</td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="na" /></td>
 
             <tr>
                 <td>Si no, justifique:</td>
@@ -882,9 +928,9 @@ const FormularioNFPA13 = () => {
                 <th>N/A</th>
             </tr>
             <td>Se provee la placa de datos hidráulicos</td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect1" value="si" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect2" value="no" /></td>
-            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect3" value="na" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="si" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="no" /></td>
+            <td><input type="radio" name="campanaHidraulicaFuncionaCorrect" value="na" /></td>
 
             <tr>
                 <td>Si no, justifique:</td>
@@ -966,25 +1012,20 @@ const FormularioNFPA13 = () => {
           <input type="text" id="nombreAreaProtegida" name="nombreAreaProtegida" required />
         </div>
         <div>
-          <label htmlFor="fecha">Fecha:</label>
-          <input type="date" id="fecha" name="fecha" required />
+          <label htmlFor="fechaHora">Fecha y Hora:</label>
+          <input type="datetime-local" id="fechaHora" name="fechaHora" value={fechaHora} readOnly required />
         </div>
         <div>
           <label htmlFor="direccion">Dirección:</label>
           <input type="text" id="direccion" name="direccion" required />
         </div>
         <div>
-          <label htmlFor="horaInicio">Hora de Inicio:</label>
-          <input type="time" id="horaInicio" name="horaInicio" required />
-        </div>
-        <div>
-        <label>
-          Tipo de prueba:
-          <select value={tipoPrueba} onChange={handleTipoPruebaChange}>
-          <option value="">Seleccione una opción</option>
-          <option value="Recepción del sistema">Recepción del sistema</option>
-          <option value="Pruebas periódicas anuales">Pruebas periódicas anuales</option>
-          </select>
+          <label>
+            Tipo de prueba:
+            <select value={tipoPrueba} onChange={handleTipoPruebaChange}>
+              <option value="Recepción del sistema">Recepción del sistema</option>
+              <option value="Pruebas periódicas anuales">Pruebas periódicas anuales</option>
+            </select>
           </label>
           {mostrarInformacionGeneral && (
           <table>
@@ -1125,6 +1166,7 @@ const FormularioNFPA13 = () => {
       {placaDatosHidraulicosTabla}
       {comentarioTabla}
       {firmasTabla}
+      <button type="button" onClick={handleGuardar}>Guardar</button>
     </div>
   );
 };

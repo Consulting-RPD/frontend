@@ -1,3 +1,4 @@
+// SeleccionProjectos.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,7 +18,6 @@ const SeleccionProjectos = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            // No incluir 'Access-Control-Allow-Origin' aquí
           },
         });
 
@@ -26,7 +26,7 @@ const SeleccionProjectos = () => {
         }
 
         const data = await response.json();
-        setProjectos(data.content); // Aquí accedemos a data.content que contiene los proyectos
+        setProjectos(data.content);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -39,7 +39,8 @@ const SeleccionProjectos = () => {
 
   const manejarSeleccion = () => {
     if (projectoSeleccionado) {
-      navigate('/seleccion-formulario');
+      console.log('Proyecto seleccionado:', projectoSeleccionado);
+      navigate('/seleccion-formulario', { state: { protocolId: projectoSeleccionado } });
     }
   };
 
@@ -63,7 +64,7 @@ const SeleccionProjectos = () => {
         <tbody>
           {projectos.map(projecto => (
             <tr key={projecto.id} onClick={() => setProjectoSeleccionado(projecto.id)}>
-              <td>{projecto.projectName}</td> {/* Usamos projectName en lugar de nombre */}
+              <td>{projecto.projectName}</td>
             </tr>
           ))}
         </tbody>

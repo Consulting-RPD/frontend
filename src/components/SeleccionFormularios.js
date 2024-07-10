@@ -1,13 +1,15 @@
+// SeleccionFormularios.js
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const SeleccionFormularios = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formularioSeleccionado, setFormularioSeleccionado] = useState('');
 
   const manejarSeleccion = () => {
     if (formularioSeleccionado) {
-      navigate(`/formularios/${formularioSeleccionado}`);
+      navigate(`/formularios/${formularioSeleccionado}`, { state: { protocolNumber: formularioSeleccionado, protocolId: location.state.protocolId } });
     }
   };
 
