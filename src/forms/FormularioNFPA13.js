@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import {useLocation } from 'react-router-dom';
 import '../styles/EstiloFormularioNFPA13.css';
 
 const FormularioNFPA13 = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const [tipoPrueba, setTipoPrueba] = useState('');
   const [mostrarInformacionGeneral, setMostrarInformacionGeneral] = useState(true);
@@ -1057,10 +1056,7 @@ const FormularioNFPA13 = () => {
               <td><input type="radio" name="personalEncargado" value="na" /></td>
             </tr>
             <tr>
-              <td>Se colocó en el expediente del proyecto lo siguiente:</td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <th>Se colocó en el expediente del proyecto lo siguiente:</th>
             </tr>
             <tr>
               <td>Planos as-built</td>
@@ -1117,10 +1113,7 @@ const FormularioNFPA13 = () => {
               <td><input type="radio" name="certificadoLavado" value="na" /></td>
             </tr>
             <tr>
-              <td>En caso haya habido soldadura se colocó:</td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <th>En caso haya habido soldadura se colocó:</th>
             </tr>
             <tr>
               <td>Certificado de cumplimiento con los procedimientos según AWS B2.1</td>
@@ -1135,7 +1128,7 @@ const FormularioNFPA13 = () => {
               <td><input type="radio" name="certificadoPersonal" value="na" /></td>
             </tr>
             <tr>
-              <td>Observaciones:</td>
+              <th>Observaciones:</th>
             </tr>
             <tr>
               <td><textarea name="observaciones"></textarea></td>
