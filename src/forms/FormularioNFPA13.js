@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { generarHTML } from './generarHTML.js';
+import {useLocation } from 'react-router-dom';
 import '../styles/EstiloFormularioNFPA13.css';
 
 const FormularioNFPA13 = () => {
+  const location = useLocation();
   const [tipoPrueba, setTipoPrueba] = useState('');
   const [mostrarInformacionGeneral, setMostrarInformacionGeneral] = useState(true);
   const [fechaHora, setFechaHora] = useState('');
@@ -24,96 +25,43 @@ const FormularioNFPA13 = () => {
     }
   };
 
-  const handleGuardar = (e) => {
-    e.preventDefault();
+  const handleGuardar = async () => {
+    const { protocolId, protocolNumber } = location.state; //protocolId de la DB
+    const protectedArea = document.getElementById('nombreAreaProtegida')?.value || '';  
+    const date = fechaHora;
+    const address = document.getElementById('direccion')?.value || '';
+    const type = tipoPrueba === 'Recepción del sistema' ? 0 : 1;
 
-    // Obtener los valores del formulario con verificación de existencia
-    const nombreAreaProtegida = document.getElementById('nombreAreaProtegida')?.value || '';
-    const fechaHora = document.getElementById('fechaHora')?.value || '';
-    const direccion = document.getElementById('direccion')?.value || '';
-    const tipoPrueba = document.getElementById('tipoPrueba')?.value || '';
-
-    // Obtener los valores seleccionados de los campos de radio en la tabla
-    const getRadioValue = (name) => {
-      const radios = document.getElementsByName(name);
-      for (const radio of radios) {
-        if (radio.checked) {
-          return radio.value;
-        }
-      }
-      return '';
+    const data = {
+      protocolNumber,
+      protectedArea,
+      date,
+      address,
+      type,
     };
+    console.log('Datos a enviar:', data);
 
-    const instacionPlanos = getRadioValue('instacionPlanos');
-    const equipamentoEspecificacion = getRadioValue('equipamentoEspecificacion');
-    const personalEncargado = getRadioValue('personalEncargado');
-    const planosAsIS = getRadioValue('planosAsIS');
-    const especificacionesTecnicas = getRadioValue('especificacionesTecnicas');
-    const actaCapacitacion = getRadioValue('actaCapacitacion');
-    const manualUsuario = getRadioValue('manualUsuario');
-    const documentacion = getRadioValue('documentacion');
-    const manualMantenimiento = getRadioValue('manualMantenimiento');
-    const programaInspecciones = getRadioValue('programaInspecciones');
-    const certificadoHidrostatica = getRadioValue('certificadoHidrostatica');
-    const certificadoLavado = getRadioValue('certificadoLavado');
-    const certificadoCumplimiento = getRadioValue('certificadoCumplimiento');
-    const certificadoPersonal = getRadioValue('certificadoPersonal');
-    const observaciones = document.getElementsByName('observaciones')[0]?.value || '';
+    try {
+      const response = await fetch(`https://rpd-dev.onrender.com/api/v1/protocols/protocolHeader/${protocolId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-    // Obtener los valores de localización del sistema
-    const localizacioSistemaNombre1 = document.getElementsByName('localizacioSistemaNombre1')[0]?.value || '';
-    const localizacioSistemaNombre2 = document.getElementsByName('localizacioSistemaNombre2')[0]?.value || '';
-    const localizacioSistemaNombre3 = document.getElementsByName('localizacioSistemaNombre3')[0]?.value || '';
-    const localizacioSistemaNombre4 = document.getElementsByName('localizacioSistemaNombre4')[0]?.value || '';
-    const localizacioSistemaNombre5 = document.getElementsByName('localizacioSistemaNombre5')[0]?.value || '';
-
-    const localizacionSistemaEdificaconAlimenta1 = document.getElementsByName('localizacionSistemaEdificaconAlimenta1')[0]?.value || '';
-    const localizacionSistemaEdificaconAlimenta2 = document.getElementsByName('localizacionSistemaEdificaconAlimenta2')[0]?.value || '';
-    const localizacionSistemaEdificaconAlimenta3 = document.getElementsByName('localizacionSistemaEdificaconAlimenta3')[0]?.value || '';
-    const localizacionSistemaEdificaconAlimenta4 = document.getElementsByName('localizacionSistemaEdificaconAlimenta4')[0]?.value || '';
-    const localizacionSistemaEdificaconAlimenta5 = document.getElementsByName('localizacionSistemaEdificaconAlimenta5')[0]?.value || '';
-
-    // Crear el contenido HTML con los valores capturados
-    const htmlContent = generarHTML({
-      nombreAreaProtegida,
-      fechaHora,
-      direccion,
-      tipoPrueba,
-      instacionPlanos,
-      equipamentoEspecificacion,
-      personalEncargado,
-      planosAsIS,
-      especificacionesTecnicas,
-      actaCapacitacion,
-      manualUsuario,
-      documentacion,
-      manualMantenimiento,
-      programaInspecciones,
-      certificadoHidrostatica,
-      certificadoLavado,
-      certificadoCumplimiento,
-      certificadoPersonal,
-      observaciones,
-      localizacioSistemaNombre1,
-      localizacioSistemaNombre2,
-      localizacioSistemaNombre3,
-      localizacioSistemaNombre4,
-      localizacioSistemaNombre5,
-      localizacionSistemaEdificaconAlimenta1,
-      localizacionSistemaEdificaconAlimenta2,
-      localizacionSistemaEdificaconAlimenta3,
-      localizacionSistemaEdificaconAlimenta4,
-      localizacionSistemaEdificaconAlimenta5
-  });
-
-  // Crear el archivo descargable y descargarlo
-  const element = document.createElement('a');
-  const file = new Blob([htmlContent], { type: 'text/html' });
-  element.href = URL.createObjectURL(file);
-  element.download = 'formulario_nfpa13.html';
-  document.body.appendChild(element);
-  element.click();
-};
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Datos guardados:', result);
+        // Aquí puedes manejar la respuesta del servidor, como mostrar un mensaje de éxito.
+      } else {
+        console.error('Error al guardar los datos');
+        // Aquí puedes manejar el error, como mostrar un mensaje de error.
+      }
+    } catch (error) {
+      console.error('Error en la petición:', error);
+    }
+  };
 
   const localizacionSistemaTabla = (
     <table>
@@ -126,85 +74,69 @@ const FormularioNFPA13 = () => {
         <tr>
           <td>
             Nombre <br />
-            <input type="text" name="localizacioSistemaNombre1" /> <br />
-            <input type="text" name="localizacioSistemaNombre2" /> <br />
-            <input type="text" name="localizacioSistemaNombre3" /> <br />
-            <input type="text" name="localizacioSistemaNombre4" /> <br />
-            <input type="text" name="localizacioSistemaNombre5" />
+            <input type="text" name="nombre1" /> <br />
+            <input type="text" name="nombre2" /> <br />
+            <input type="text" name="nombre3" /> <br />
+            <input type="text" name="nombre4" /> <br />
+            <input type="text" name="nombre5" />
           </td>
           <td>
             Edificaciones que alimenta <br />
-            <input type="text" name="localizacionSistemaEdificaconAlimenta1" /> <br />
-            <input type="text" name="localizacionSistemaEdificaconAlimenta2" /> <br />
-            <input type="text" name="localizacionSistemaEdificaconAlimenta3" /> <br />
-            <input type="text" name="localizacionSistemaEdificaconAlimenta4" /> <br />
-            <input type="text" name="localizacionSistemaEdificaconAlimenta5" />
+            <input type="text" name="nombreModelo1" /> <br />
+            <input type="text" name="nombreModelo2" /> <br />
+            <input type="text" name="nombreModelo3" /> <br />
+            <input type="text" name="nombreModelo4" /> <br />
+            <input type="text" name="nombreModelo5" />
           </td>
         </tr>
       </tbody>
     </table>
   );
-  const rociadoresTabla = (
+
+
+    const rociadoresTabla = (
     <table>
+        
       <thead>
-        <tr>
+      <tr>
           <th>Rociadores</th>
+        </tr>        
+        <tr>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Año de Fabricación</th>
+          <th>Factor K</th>
+          <th>Cantidad</th>
+          <th>Temperatura de Respuesta</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
-          Marca <br />
-            <input type="text" name="rociadoresMarca1" /> <br />
-            <input type="text" name="rociadoresMarca2" /> <br />
-            <input type="text" name="rociadoresMarca3" /> <br />
-            <input type="text" name="rociadoresMarca4" /> <br />
-            <input type="text" name="rociadoresMarca5" />
-          </td>
-          <td>
-          Modelo <br />
-            <input type="text" name="rociadoresModelo1" /> <br />
-            <input type="text" name="rociadoresModelo2" /> <br />
-            <input type="text" name="rociadoresModelo3" /> <br />
-            <input type="text" name="rociadoresModelo4" /> <br />
-            <input type="text" name="rociadoresModelo5" />
-          </td>
-          <td>
-          Año de Fabricación <br />
-            <input type="text" name="rociadoresYearFabricacion1" /> <br />
-            <input type="text" name="rociadoresYearFabricacion2" /> <br />
-            <input type="text" name="rociadoresYearFabricacion3" /> <br />
-            <input type="text" name="rociadoresYearFabricacion4" /> <br />
-            <input type="text" name="rociadoresYearFabricacion5" />
-          </td>
-          <td>
-          Factor K <br />
-            <input type="text" name="rociadoresFactorK1" /> <br />
-            <input type="text" name="rociadoresFactorK2" /> <br />
-            <input type="text" name="rociadoresFactorK3" /> <br />
-            <input type="text" name="rociadoresFactorK4" /> <br />
-            <input type="text" name="rociadoresFactorK5" />
-          </td>
-          <td>
-          Cantidad <br />
-            <input type="text" name="rociadoresCantidad1" /> <br />
-            <input type="text" name="rociadoresCantidad2" /> <br />
-            <input type="text" name="rociadoresCantidad3" /> <br />
-            <input type="text" name="rociadoresCantidad4" /> <br />
-            <input type="text" name="rociadoresCantidad5" />
-          </td>
-          <td>
-          Temperatura de Respuesta <br />
-            <input type="text" name="rociadoresTemperaturaRespuesta1" /> <br />
-            <input type="text" name="rociadoresTemperaturaRespuesta2" /> <br />
-            <input type="text" name="rociadoresTemperaturaRespuesta3" /> <br />
-            <input type="text" name="rociadoresTemperaturaRespuesta4" /> <br />
-            <input type="text" name="rociadoresTemperaturaRespuesta5" />
-          </td>
-        </tr>
+        {/* Create 5 rows with input fields */}
+        {Array.from({ length: 5 }).map((_, index) => (
+          <tr key={index}>
+            <td>
+              <input type="text" name={`marca${index + 1}`} />
+            </td>
+            <td>
+              <input type="text" name={`modelo${index + 1}`} />
+            </td>
+            <td>
+              <input type="text" name={`anioFabricacion${index + 1}`} />
+            </td>
+            <td>
+              <input type="text" name={`factorK${index + 1}`} />
+            </td>
+            <td>
+              <input type="text" name={`cantidad${index + 1}`} />
+            </td>
+            <td>
+              <input type="text" name={`temperaturaRespuesta${index + 1}`} />
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
-  );    
+  );
 
   const tuberiaAccesoriosTabla = (
     <table>     
@@ -1067,12 +999,13 @@ const FormularioNFPA13 = () => {
             </tr>
       </tbody>
     </table>
-  );  
+  );
+  
 
   return (
     <div>
       <h1>Formulario NFPA 13</h1>
-      <form onSubmit={handleGuardar}>
+      <form>
         <div>
           <label htmlFor="nombreAreaProtegida">Nombre del Área Protegida:</label>
           <input type="text" id="nombreAreaProtegida" name="nombreAreaProtegida" required />
@@ -1086,12 +1019,13 @@ const FormularioNFPA13 = () => {
           <input type="text" id="direccion" name="direccion" required />
         </div>
         <div>
-        <label>Tipo de prueba</label>
-        <select id="tipoPrueba" value={tipoPrueba} onChange={handleTipoPruebaChange} name="tipoPrueba">
-          <option value="">Seleccione...</option>
-          <option value="Pruebas iniciales">Recepción del sistema</option>
-          <option value="Pruebas periódicas anuales">Pruebas periódicas anuales</option>
-        </select>
+          <label>
+            Tipo de prueba:
+            <select value={tipoPrueba} onChange={handleTipoPruebaChange}>
+              <option value="Recepción del sistema">Recepción del sistema</option>
+              <option value="Pruebas periódicas anuales">Pruebas periódicas anuales</option>
+            </select>
+          </label>
           {mostrarInformacionGeneral && (
           <table>
           <thead>
@@ -1198,11 +1132,13 @@ const FormularioNFPA13 = () => {
             </tr>
             <tr>
               <td><textarea name="observaciones"></textarea></td>
-            </tr>            
-          </tbody>          
+            </tr>
+          </tbody>
         </table>
-        )}        
-        </div>         
+        )}
+        </div>        
+        </form>
+
       {mostrarInformacionGeneral}
       {localizacionSistemaTabla}
       {rociadoresTabla}
@@ -1223,8 +1159,7 @@ const FormularioNFPA13 = () => {
       {placaDatosHidraulicosTabla}
       {comentarioTabla}
       {firmasTabla}
-      <button type="button" id="saveButton" onClick={handleGuardar}>Guardar</button> 
-      </form>            
+      <button type="button" onClick={handleGuardar}>Guardar</button>
     </div>
   );
 };
